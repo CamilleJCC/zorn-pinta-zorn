@@ -1696,7 +1696,7 @@ margin-top: 0;
     
     h1 {
         font-size: clamp(2.3em, 5vw, 2.2rem);
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.5rem;
     }
     
     h2 {
