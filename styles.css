@@ -1996,6 +1996,9 @@ height: auto;
 }
 .mobile-only {
     display: none;
+}
+h2.mobile-only {
+    display: none;
     padding-bottom:10px;
 }
 .desktop-only {
