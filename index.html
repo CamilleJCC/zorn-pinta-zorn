@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zorn pinta a Zorn</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+    <div class="investigation-container">
+        <div class="left-col">
+            <h1>Zorn pinta a Zorn</h1>            
+<h2>En esta pintura, Anders Zorn se pintó a sí mismo.</h3>
+            <div class="step-section active" id="step-1">
+                    <!-- Game Instructions -->
+                <div class="game-instructions">
+                       <p class="content-section semibold">Encuentra en la obra</p>
+                    <div class="objects-to-find">
+                        <div class="object-item" id="sculpture-item" data-found="false">
+                            <span class="checkbox">○</span>
+                            <span>Una escultura</span>
+                        </div>
+                        <div class="object-item" id="canvas-item" data-found="false">
+                            <span class="checkbox">○</span>
+                            <span>
+                                Un lienzo del revés
+                                </span>
+                        </div>
+                        <div class="object-item" id="firma-item" data-found="false">
+                            <span class="checkbox">○</span>
+                            <span>
+                                La firma del artista
+                                </span>
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <p class="semibold">¿Qué color llama más tu atención?</p>
+                        <div class="response-section">
+                            <div class="multiple-choice binary-choice">
+                                <label class="choice-option">
+                                    <input type="radio" name="colorChoice" value="gris"><img src="assets/01.1.png">
+                                    <span>El gris, porque hay mucha cantidad.</span>
+                                </label>
+                                <label class="choice-option">
+                                    <input type="radio" name="colorChoice" value="rojo">
+                                    <img src="assets/01.2.png"><span>El rojo, porque destaca más.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="questions-section">
+                        <p class="semibold">¿Con qué objetos te pintarías?</p>
+                       <div class="response-section">
+            <input type="text" class="magic-input" placeholder="Escribir...">
+            
+            <div class="answers-container"></div>
+        </div>      </div>
+                </div>
+                
+                
+                        </div>
+
+                        
+        </div>
+        
+        <div class="artwork-frame">
+            <!-- Base painting without the missing elements -->
+            <img src="assets/01..png" class="artwork" id="myimage" alt="Raimundo de Madrazo, Muchachas en la ventana, 1875">
+            <!-- Click zones for finding objects -->
+            <div class="click-zone" id="sculpture-zone"></div>
+            <div class="click-zone" id="canvas-zone"></div>
+            <div class="click-zone" id="firma-zone"></div>
+            
+            <!-- Found indicators -->
+            <div class="found-indicator" id="found-sculpture" style="display: none;">
+                <div class="pulse-circle"></div>
+            </div>
+            <div class="found-indicator" id="found-canvas" style="display: none;">
+                <div class="pulse-circle"></div>
+            </div>
+            <div class="found-indicator" id="found-firma" style="display: none;">
+                <div class="pulse-circle"></div>
+            </div>
+            
+            <!-- Custom cursor for search mode -->
+            <div class="search-cursor" id="searchCursor">
+                <div class="magnifying-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="8" stroke="#87bafa" stroke-width="3" fill="none"/>
+                        <path d="m21 21-4.35-4.35" stroke="#87bafa" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="magnifying-glass" style="display: none;">
+                <!-- The magnifying glass effect will be handled by JavaScript -->
+            </div>
+            <p><span class="semibold">Anders Zorn,</span> Autorretrato, 1889 Florencia, Galleriedegli Uffizi</p>
+
+        </div>
+        
+    </div>
+
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+</body>
+</html>
