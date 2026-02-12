@@ -1152,19 +1152,12 @@ top: 33%;
     height: 50px;
 }
 /* Found indicators positioned to match click zones */
-#found-sculpture {
-    bottom: 53%;
-    left: 21%;
-}
-
-#found-canvas {
-    top: 30%;
-    right: 63%;
-}
-#found-firma {
-    top: 9%;
-    left: 11%;
-}
+#found-sculpture { top: 40%;
+    left: 21%;}
+#found-canvas    { top: 25%;
+    left: 30%;}
+#found-firma     { top: 3%;
+    left: 15%;}
 
 /* Found indicators */
 .found-indicator {
@@ -1192,20 +1185,32 @@ top: 33%;
 
 /* --- MOBILE ADAPTATION (Max 600px) --- */
 @media (max-width: 999px) {
+    #sculpture-zone {
+        bottom: 37%;
+        left: 6%;
+        width: 100px;
+        height: 100px;
+    }
+    #firma-zone {
+        top: 22%;
+        left: 3%;
+        width: 100px;
+        height: 50px;
+    }
     /* Individually repositioning each pulse for small screens */
     #found-sculpture {
-        bottom: 59%;
+        top: 51%;
         left: 19%;
     }
 
     #found-canvas {
-        top: 19%;
-        right: 59%;
+        top: 37%;
+        left: 28%;
     }
 
     #found-firma {
-        top: 1%;
-        left: 9%;
+        top: 23%;
+        left: 10%;
     }
 
     /* Scaling the size of the pulses so they don't cover the whole object */
@@ -1785,7 +1790,8 @@ margin-top: 0;
 }
 
 .choice-option {
-    display: block;
+    display: flex;
+    gap: 14px;
     cursor: pointer;
     position: relative;
     background: var(--background-color);
@@ -1795,6 +1801,7 @@ margin-top: 0;
     transition: all 0.3s ease;
     font-size: clamp(1em, 2vw, 1rem);
     width: 48%;
+    flex-direction: row;
 }
 
 .choice-option:nth-child(1) {
@@ -1989,6 +1996,7 @@ height: auto;
 }
 .mobile-only {
     display: none;
+    padding-bottom:10px;
 }
 .desktop-only {
     display: block;
