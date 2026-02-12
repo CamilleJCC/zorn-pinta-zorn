@@ -103,7 +103,7 @@ p {
     max-width: 240px;
 }
 .semibold {
-    font-family: 'InterTight-SemiboldItalic';
+    font-family: 'InterTight-Semibold';
 }
 
 .artwork {
@@ -1086,6 +1086,7 @@ top: 33%;
     gap: 0px 20px;
     flex-direction: column;
     flex-wrap: nowrap;
+    padding-bottom: 15px;
 }
 
 .object-item {
