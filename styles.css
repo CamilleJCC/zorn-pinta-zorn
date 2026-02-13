@@ -1807,6 +1807,7 @@ margin-top: 0;
     font-size: clamp(1em, 2vw, 1rem);
     width: 48%;
     flex-direction: row;
+    align-items: center;
 }
 
 .choice-option:nth-child(1) {
@@ -1996,8 +1997,8 @@ margin-top: 0;
 }
 
 .choice-option img{
-width: 40px;
-height: auto;
+    width: 50px;
+    height: 50px;
 }
 .mobile-only {
     display: none;
