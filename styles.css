@@ -76,10 +76,12 @@ h1 {
     text-align: left;
     line-height: 1.02;
     font-weight: normal;
-    margin-bottom: clamp(1rem, 3vw, 1.25rem);
+    margin-bottom: 10px;
+    margin-left: 26px;
 }
 h2 {
     padding-right:min(20%, 6rem);
+    margin-left: 26px;
     }
 
 p {
@@ -1697,11 +1699,13 @@ margin-top: 0;
     h1 {
         font-size: clamp(2.3em, 5vw, 2.2rem);
         margin-bottom: 0.5rem;
+        margin-left: 0px;
     }
     
     h2 {
         width: 95%;
         padding: 0px;
+        margin-left: 0px;
     }
     
     p {
