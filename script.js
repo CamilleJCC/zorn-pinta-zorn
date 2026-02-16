@@ -1105,206 +1105,56 @@ function showHint(objectName) {
     }
 }
 
-// Optional: Add progress tracking
-function getGameProgress() {
-    const foundCount = document.querySelectorAll('.object-item[data-found="true"]').length;
-    const totalCount = document.querySelectorAll('.object-item').length;
-    return {
-        found: foundCount,
-        total: totalCount,
-        percentage: Math.round((foundCount / totalCount) * 100)
-    };
-}
+document.addEventListener('mouseover', (e) => {
+    // Detectamos si el mouse entra en una opción de color
+    const option = e.target.closest('.choice-option');
+    if (!option) return;
 
-const canvas = document.getElementById('drawingCanvas');
-const ctx = canvas.getContext('2d');
-let isDrawing = false;
-let currentTool = 'pencil';
-let penSize = 5;
-let currentColor = '#000';
+    // Buscamos el radio button dentro de esa opción
+    const input = option.querySelector('input[name="colorChoice"]');
+    if (!input) return;
 
-const brushStyles = {
-    pencil: {
-        setup(ctx) {
-            ctx.globalAlpha = 1;
-            ctx.lineWidth = penSize;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-        },
-        draw(ctx, x, y) {
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
-    },
-    marker: {
-        setup(ctx) {
-            ctx.globalAlpha = 1;
-            ctx.lineWidth = penSize * 2;
-            ctx.lineCap = 'square';
-            ctx.lineJoin = 'miter';
-        },
-        draw(ctx, x, y) {
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
-    },
-    crayon: {
-        setup(ctx) {
-            ctx.lineWidth = penSize * 1.5;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.globalAlpha = 0.8;
-        },
-        draw(ctx, x, y) {
-            for (let i = 0; i < 3; i++) {
-                ctx.lineTo(x + Math.random() * 2 - 1, y + Math.random() * 2 - 1);
-                ctx.stroke();
-            }
-        }
-    },
-    spray: {
-        setup(ctx) {
-            ctx.fillStyle = currentColor;
-            ctx.globalAlpha = 1;
-        },
-        draw(ctx, x, y) {
-            for (let i = 0; i < 20; i++) {
-                const angle = Math.random() * 2 * Math.PI;
-                const radius = Math.random() * penSize * 2;
-                ctx.fillRect(
-                    x + radius * Math.cos(angle),
-                    y + radius * Math.sin(angle),
-                    1, 1
-                );
-            }
-        }
+    // Activamos la capa correspondiente
+    if (input.value === 'gris') {
+        document.getElementById('layer-gris').style.opacity = '1';
+    } else if (input.value === 'rojo') {
+        document.getElementById('layer-rojo').style.opacity = '1';
     }
-};
-
-function setCanvasSize() {
-    const frame = canvas.parentElement;
-    canvas.width = frame.offsetWidth;
-    canvas.height = frame.offsetWidth * 0.5;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-function startDrawing(e) {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
-    brushStyles[currentTool].setup(ctx);
-}
-
-function draw(e) {
-    if (!isDrawing) return;
-    brushStyles[currentTool].draw(ctx, e.offsetX, e.offsetY);
-}
-
-function stopDrawing() {
-    isDrawing = false;  
-    ctx.closePath();
-}
-
-function handleTouchStart(e) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    brushStyles[currentTool].setup(ctx);
-}
-
-function handleTouchMove(e) {
-    e.preventDefault();
-    if (!isDrawing) return;
-    
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    
-    brushStyles[currentTool].draw(ctx, x, y);
-}
-
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-function downloadDrawing() {
-    // Create a temporary canvas with white background
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    
-    // Fill with white background
-    tempCtx.fillStyle = 'white';
-    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-    
-    // Draw the original canvas content on top
-    tempCtx.drawImage(canvas, 0, 0);
-    
-    // Convert to blob and download
-    tempCanvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'mi-superheroe.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }, 'image/png');
-}
-
-document.getElementById('pencilTool').addEventListener('click', () => currentTool = 'pencil');
-document.getElementById('markerTool').addEventListener('click', () => currentTool = 'marker');
-document.getElementById('crayonTool').addEventListener('click', () => currentTool = 'crayon');
-document.getElementById('sprayTool').addEventListener('click', () => currentTool = 'spray');
-document.getElementById('clearCanvas').addEventListener('click', clearCanvas);
-document.getElementById('downloadDrawing').addEventListener('click', downloadDrawing);
-
-// Mouse events for desktop
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing);
-
-// Touch events for mobile
-canvas.addEventListener('touchstart', handleTouchStart);
-canvas.addEventListener('touchmove', handleTouchMove);
-canvas.addEventListener('touchend', stopDrawing);
-canvas.addEventListener('touchcancel', stopDrawing);
-
-window.addEventListener('resize', setCanvasSize);
-setCanvasSize();
-
-const colorPicker = document.getElementById('colorPicker');
-const penSizeSlider = document.getElementById('penSize');
-const brushSelector = document.getElementById('brushStyle');
-
-// Update the current color when the color picker changes
-colorPicker.addEventListener('input', (e) => {
-    currentColor = e.target.value;
-    ctx.strokeStyle = currentColor;
-    ctx.fillStyle = currentColor;
 });
 
-// Update the pen size when the slider changes
-penSizeSlider.addEventListener('input', (e) => {
-    penSize = e.target.value;
+document.addEventListener('mouseout', (e) => {
+    // Cuando el mouse sale de la opción, reseteamos la opacidad
+    const option = e.target.closest('.choice-option');
+    if (option) {
+        document.getElementById('layer-gris').style.opacity = '0';
+        document.getElementById('layer-rojo').style.opacity = '0';
+    }
 });
+// Función autoejecutable para evitar conflictos
+(function() {
+    const setupColorHover = () => {
+        const options = document.querySelectorAll('.choice-option');
+        
+        options.forEach(option => {
+            const radio = option.querySelector('input[name="colorChoice"]');
+            if (!radio) return;
 
-// Update the brush style when the selector changes
-brushSelector.addEventListener('change', (e) => {
-    currentTool = e.target.value;
-});
+            const color = radio.value; // "gris" o "rojo"
 
-// Ensure the initial color and pen size are applied
-ctx.strokeStyle = currentColor;
-ctx.fillStyle = currentColor;
+            option.addEventListener('mouseenter', () => {
+                document.body.classList.add(`show-${color}`);
+            });
+
+            option.addEventListener('mouseleave', () => {
+                document.body.classList.remove(`show-${color}`);
+            });
+        });
+    };
+
+    // Ejecutar inmediatamente y también cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupColorHover);
+    } else {
+        setupColorHover();
+    }
+})();
